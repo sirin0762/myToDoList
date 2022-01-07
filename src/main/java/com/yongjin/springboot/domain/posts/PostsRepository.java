@@ -1,4 +1,4 @@
-package com.yongjin.springboot.controller.domain.posts;
+package com.yongjin.springboot.domain.posts;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
