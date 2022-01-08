@@ -4,8 +4,3 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-
-  mvc:
-    hiddenmethod:
-      filter:
-        enabled: true
