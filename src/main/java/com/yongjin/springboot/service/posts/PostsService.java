@@ -47,4 +47,11 @@ public class PostsService {
         return id;
     }
 
+    public void delete(Long id) {
+        Posts posts = postsRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("해당 id는 존재하지 않습니다."));
+
+        postsRepository.delete(posts);
+    }
+
 }

@@ -5,6 +5,7 @@ import com.yongjin.springboot.controller.dto.PostsSaveRequestDto;
 import com.yongjin.springboot.controller.dto.PostsUpdateRequestDto;
 import com.yongjin.springboot.service.posts.PostsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,6 +37,12 @@ public class PostsApiController {
         @RequestBody PostsUpdateRequestDto requestDto
     ) {
         return postsService.update(id, requestDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public Long delete(@PathVariable("id") Long id) {
+        postsService.delete(id);
+        return id;
     }
 
 }
