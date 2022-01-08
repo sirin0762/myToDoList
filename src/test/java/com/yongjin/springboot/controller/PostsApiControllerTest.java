@@ -18,7 +18,6 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class PostsApiControllerTest {
@@ -48,7 +47,7 @@ public class PostsApiControllerTest {
             .author("author")
             .build();
 
-        String url = "http://localhost: " + port + "/api/v1/posts";
+        String url = "http://localhost:" + port + "/api/v1/posts";
         // when
         ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, requestDto, Long.class);
         // then
@@ -59,4 +58,29 @@ public class PostsApiControllerTest {
         assertThat(all.get(0).getTitle()).isEqualTo(title);
         assertThat(all.get(0).getContent()).isEqualTo(content);
     }
+
+    @Test
+    public void Posts_조회된다() {
+        // given
+        String title = "title";
+        String content = "content";
+        Posts posts = Posts.builder()
+            .title(title)
+            .content(content)
+            .author("author")
+            .build();
+
+        Long postId = postsRepository.save(posts).getId();
+        String url = "http://localhost:" + port + "/api/v1/posts/" + postId;
+        // when
+        ResponseEntity<Posts> responseEntity = restTemplate.getForEntity(url, Posts.class);
+        // then
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody().getId()).isEqualTo(postId);
+
+        List<Posts> all = postsRepository.findAll();
+        assertThat(all.get(0).getTitle()).isEqualTo(title);
+        assertThat(all.get(0).getContent()).isEqualTo(content);
+    }
+
 }

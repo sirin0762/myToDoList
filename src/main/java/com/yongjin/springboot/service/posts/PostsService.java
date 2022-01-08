@@ -1,6 +1,8 @@
 package com.yongjin.springboot.service.posts;
 
+import com.yongjin.springboot.controller.dto.PostsResponseDto;
 import com.yongjin.springboot.controller.dto.PostsSaveRequestDto;
+import com.yongjin.springboot.domain.posts.Posts;
 import com.yongjin.springboot.domain.posts.PostsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,4 +18,12 @@ public class PostsService {
     public Long save(PostsSaveRequestDto requestDto) {
         return postsRepository.save(requestDto.toEntity()).getId();
     }
+
+    public PostsResponseDto findById(Long id)  {
+        Posts posts = postsRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("해당 id는 존재하지 않습니다."));
+
+        return new PostsResponseDto(posts);
+    }
+
 }
