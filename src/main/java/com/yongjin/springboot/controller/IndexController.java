@@ -22,7 +22,6 @@ public class IndexController {
     @GetMapping("/")
     public String index(Model model, @LoginUser SessionUser user) {
         model.addAttribute("posts", postsService.findAllDesc());
-
         if (user != null) {
             model.addAttribute("userName", user.getName());
         }
@@ -36,7 +35,6 @@ public class IndexController {
 
     @GetMapping("/posts/update/{id}")
     public String postsSave(@PathVariable("id") Long id, Model model) {
-
         PostsResponseDto dto = postsService.findById(id);
         model.addAttribute("post", dto);
         return "posts-update";

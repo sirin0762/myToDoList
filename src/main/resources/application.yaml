@@ -6,3 +6,8 @@ spring:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
   profiles:
     include: oauth
+  session:
+    store-type: jdbc
+  h2:
+    console:
+      enabled: true
